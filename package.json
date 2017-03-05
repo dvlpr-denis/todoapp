@@ -4,8 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "babel src/app.js -o app/app.js"
+    "build": "babel src/app.js -o app/js/app.js"
   },
+	"babel" : {
+		"presets" : ["es2015"],
+		"plugins" : []
+	},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dvlpr-denis/todoapp.git"
