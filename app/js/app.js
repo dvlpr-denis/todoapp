@@ -1,21 +1,19 @@
 'use strict';
 
-$('.tresh').on('click', function () {
-	console.log(this);
-});
+document.getElementById;
 
 // get value in input on click and create li-item
 
+document.getElementById('add').addEventListener('click', function () {
 
-$('.add').on('click', function () {
+	var item = document.getElementById('item');
 
-	var valueItem = $('.item').val();
+	if (item.value) {
 
-	if (valueItem) {
-		addItem(valueItem);
-
-		valueItem = '';
+		addItem(item.value);
 	}
+
+	item.value = '';
 });
 
 //add item function
@@ -28,13 +26,30 @@ var addItem = function addItem(text) {
 
 	item.innerHTML = text;
 
+	createButton(item);
+
 	todoList.insertBefore(item, todoList.children[0]);
 };
 
-//delete item function
+//create and append buttons
 
-var deleteItem = function deleteItem(elem) {
-	var todoList = document.getElementById('todo-list');
+var createButton = function createButton(li) {
+	var tresh = document.createElement('div');
 
-	todoList.removeChild(elem);
+	tresh.className = 'tresh';
+
+	tresh.id = 'tresh';
+
+	tresh.innerHTML = '<i class="fa fa-trash-o" aria-hidden="true"></i>';
+
+	var complete = document.createElement('div');
+
+	complete.className = 'complete';
+
+	complete.id = 'complete';
+
+	complete.innerHTML = '<img src="img/complete.png" alt="">';
+
+	li.append(tresh);
+	li.append(complete);
 };
