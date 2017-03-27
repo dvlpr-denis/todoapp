@@ -1,12 +1,8 @@
 'use strict';
 
-//add item function
-var addItem = function addItem(text) {
-	var item = $('<li class="todo-list-item">\n\t\t\t\t\t\t\t\t\t\t' + text + ' \n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<div class="tresh">\n            \t\t\t\t\t<i class="fa fa-trash-o" aria-hidden="true"></i>\n            \t\t\t\t</div>\n            \n\t\t\t\t\t\t\t\t\t\t<div class="complete">\n\t\t\t\t\t\t\t\t\t\t\t<img src="img/complete.png" alt="">\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</li>'),
-	    todoList = $('.todo-list');
-
-	todoList.append(item);
-};
+$('.tresh').on('click', function () {
+	console.log(this);
+});
 
 // get value in input on click and create li-item
 
@@ -15,5 +11,30 @@ $('.add').on('click', function () {
 
 	var valueItem = $('.item').val();
 
-	if (valueItem !== '' && valueItem != null) addItem(valueItem);
+	if (valueItem) {
+		addItem(valueItem);
+
+		valueItem = '';
+	}
 });
+
+//add item function
+var addItem = function addItem(text) {
+	var todoList = document.getElementById('todo-list');
+
+	var item = document.createElement('li');
+
+	item.className = "todo-list-item";
+
+	item.innerHTML = text;
+
+	todoList.insertBefore(item, todoList.children[0]);
+};
+
+//delete item function
+
+var deleteItem = function deleteItem(elem) {
+	var todoList = document.getElementById('todo-list');
+
+	todoList.removeChild(elem);
+};
