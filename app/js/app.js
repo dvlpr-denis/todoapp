@@ -1,5 +1,11 @@
 'use strict';
 
+//var date = new Date(),
+//		hh = date.getHours(),
+//		mm = date.getMinutes();
+//
+//console.log(hh + ':' + mm + ';');
+
 // get value in input on click and create li-item
 
 document.getElementById('add').addEventListener('click', function () {
@@ -16,7 +22,7 @@ document.getElementById('add').addEventListener('click', function () {
 
 document.getElementById('item').addEventListener('keydown', function (e) {
 
-	if (e.keyCode === 13) {
+	if (e.keyCode === 13 && this.value) {
 
 		addItem(this.value);
 		this.value = '';
@@ -34,6 +40,7 @@ var removeItem = function removeItem() {
 
 //add item function
 var addItem = function addItem(text) {
+
 	var todoList = document.getElementById('todo-list');
 
 	var item = document.createElement('li');
@@ -45,6 +52,12 @@ var addItem = function addItem(text) {
 	createButton(item);
 
 	todoList.insertBefore(item, todoList.children[0]);
+
+	var date = new Date(),
+	    hh = date.getHours(),
+	    mm = date.getMinutes();
+
+	time(item, hh, mm);
 };
 
 //create and append buttons
@@ -70,4 +83,16 @@ var createButton = function createButton(li) {
 
 	li.append(tresh);
 	li.append(complete);
+};
+
+//time when create task
+
+var time = function time(li, hh, mm) {
+	var blockTime = document.createElement('div');
+
+	blockTime.className = 'time';
+
+	blockTime.innerHTML = hh + ': ' + mm;
+
+	li.append(blockTime);
 };
