@@ -1,7 +1,5 @@
 'use strict';
 
-document.getElementById;
-
 // get value in input on click and create li-item
 
 document.getElementById('add').addEventListener('click', function () {
@@ -15,6 +13,24 @@ document.getElementById('add').addEventListener('click', function () {
 
 	item.value = '';
 });
+
+document.getElementById('item').addEventListener('keydown', function (e) {
+
+	if (e.keyCode === 13) {
+
+		addItem(this.value);
+		this.value = '';
+	}
+});
+
+//tresh item function
+
+var removeItem = function removeItem() {
+
+	var delItem = document.getElementById('tresh').parentNode,
+	    parent = delItem.parentNode;
+	parent.removeChild(delItem);
+};
 
 //add item function
 var addItem = function addItem(text) {
@@ -41,6 +57,8 @@ var createButton = function createButton(li) {
 	tresh.id = 'tresh';
 
 	tresh.innerHTML = '<i class="fa fa-trash-o" aria-hidden="true"></i>';
+
+	tresh.addEventListener('click', removeItem);
 
 	var complete = document.createElement('div');
 

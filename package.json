@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "babel src/app.js -o app/js/app.js"
+    "build": "babel src/app.js -o app/js/app.js -w"
   },
 	"babel" : {
 		"presets" : ["es2015"],
