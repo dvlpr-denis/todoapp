@@ -1,10 +1,6 @@
 'use strict';
 
-//var date = new Date(),
-//		hh = date.getHours(),
-//		mm = date.getMinutes();
-//
-//console.log(hh + ':' + mm + ';');
+var data = [];
 
 // get value in input on click and create li-item
 
@@ -58,6 +54,14 @@ var addItem = function addItem(text) {
 	    mm = date.getMinutes();
 
 	time(item, hh, mm);
+
+	data.push(text);
+
+	toLocalStorage();
+};
+
+var toLocalStorage = function toLocalStorage() {
+	localStorage.setItem('todolist', JSON.stringify(data));
 };
 
 //create and append buttons
@@ -92,7 +96,7 @@ var time = function time(li, hh, mm) {
 
 	blockTime.className = 'time';
 
-	blockTime.innerHTML = hh + ': ' + mm;
+	mm < 10 ? blockTime.innerHTML = hh + ': ' + '0' + mm : blockTime.innerHTML = hh + ': ' + mm;
 
 	li.append(blockTime);
 };
