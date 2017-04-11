@@ -1,6 +1,14 @@
 'use strict';
 
-var data = [];
+var data = localStorage.getItem('todoList') ? JSON.parse(localStorage.getItem('todolist')) : [];
+
+var renderTodo = function renderTodo() {
+	for (var i = 0; i < data.lenght; i++) {
+		console.log(i);
+	}
+};
+
+renderTodo();
 
 // get value in input on click and create li-item
 
@@ -57,11 +65,11 @@ var addItem = function addItem(text) {
 
 	data.push(text);
 
-	toLocalStorage();
+	toLocalStorage(data);
 };
 
-var toLocalStorage = function toLocalStorage() {
-	localStorage.setItem('todolist', JSON.stringify(data));
+var toLocalStorage = function toLocalStorage(arr) {
+	localStorage.setItem('todolist', JSON.stringify(arr));
 };
 
 //create and append buttons
