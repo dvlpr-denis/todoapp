@@ -26,12 +26,21 @@ document.getElementById('item').addEventListener('keydown', function (e) {
 
 //tresh item function
 
-var removeItem = function removeItem() {
+//const removeItem = () => {
 
-	var delItem = document.getElementById('tresh').parentNode,
-	    parent = delItem.parentNode;
-	parent.removeChild(delItem);
-};
+//	var item = this.parentNode,
+//			parent = item.parentNode,
+//			id = parent.id,
+//			value = item.innerText;
+//	
+//	data.splice(data.indexOf(value), 1);
+//	
+//	toLocalStorage(data);
+//	
+//	
+//	parent.removeChild(item);
+//	
+//};
 
 //add item function
 var addItem = function addItem(text) {
@@ -58,7 +67,18 @@ var createButton = function createButton(li) {
 
 	tresh.innerHTML = '<i class="fa fa-trash-o" aria-hidden="true"></i>';
 
-	tresh.addEventListener('click', removeItem);
+	tresh.addEventListener('click', function () {
+		var item = this.parentNode,
+		    parent = item.parentNode,
+		    id = parent.id,
+		    value = item.innerText;
+
+		data.splice(data.indexOf(value), 1);
+
+		toLocalStorage(data);
+
+		parent.removeChild(item);
+	});
 
 	var complete = document.createElement('div');
 
@@ -85,24 +105,6 @@ var toDom = function toDom(text) {
 	createButton(item);
 
 	todoList.insertBefore(item, todoList.children[0]);
-
-	var date = new Date(),
-	    hh = date.getHours(),
-	    mm = date.getMinutes();
-
-	time(item, hh, mm);
-};
-
-//time when create task
-
-var time = function time(li, hh, mm) {
-	var blockTime = document.createElement('div');
-
-	blockTime.className = 'time';
-
-	mm < 10 ? blockTime.innerHTML = hh + ': ' + '0' + mm : blockTime.innerHTML = hh + ': ' + mm;
-
-	li.append(blockTime);
 };
 
 var render = function render() {
