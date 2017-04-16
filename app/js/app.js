@@ -1,6 +1,9 @@
 'use strict';
 
-var data = localStorage.getItem('todolist') ? JSON.parse(localStorage.getItem('todolist')) : [];
+var data = localStorage.getItem('todolist').lenght ? JSON.parse(localStorage.getItem('todolist')) : {
+	todo: [],
+	completed: []
+};
 
 // get value in input on click and create li-item
 
@@ -13,6 +16,8 @@ document.getElementById('add').addEventListener('click', function () {
 		addItem(item.value);
 	}
 	item.value = '';
+
+	console.log(data.todo);
 });
 
 document.getElementById('item').addEventListener('keydown', function (e) {
@@ -24,36 +29,18 @@ document.getElementById('item').addEventListener('keydown', function (e) {
 	}
 });
 
-//tresh item function
-
-//const removeItem = () => {
-
-//	var item = this.parentNode,
-//			parent = item.parentNode,
-//			id = parent.id,
-//			value = item.innerText;
-//	
-//	data.splice(data.indexOf(value), 1);
-//	
-//	toLocalStorage(data);
-//	
-//	
-//	parent.removeChild(item);
-//	
-//};
-
 //add item function
 var addItem = function addItem(text) {
 
 	toDom(text);
 
-	data.push(text);
+	data.todo.push(text);
 
-	toLocalStorage(data);
+	toLocalStorage();
 };
 
-var toLocalStorage = function toLocalStorage(arr) {
-	localStorage.setItem('todolist', JSON.stringify(arr));
+var toLocalStorage = function toLocalStorage() {
+	localStorage.setItem('todolist', JSON.stringify(data));
 };
 
 //create and append buttons
@@ -73,9 +60,9 @@ var createButton = function createButton(li) {
 		    id = parent.id,
 		    value = item.innerText;
 
-		data.splice(data.indexOf(value), 1);
+		data.todo.splice(data.todo.indexOf(value), 1);
 
-		toLocalStorage(data);
+		toLocalStorage();
 
 		parent.removeChild(item);
 	});
@@ -108,9 +95,10 @@ var toDom = function toDom(text) {
 };
 
 var render = function render() {
-	for (var i = 0; i < data.length; i++) {
-		toDom(data[i]);
+
+	for (var i = 0; i < data.todo.length; i++) {
+		toDom(data.todo[i]);
 	}
 };
 
-render(data);
+render();

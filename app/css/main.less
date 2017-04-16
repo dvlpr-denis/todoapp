@@ -8,6 +8,59 @@ body {
 	background-color: #d8d8d8;
 }
 
+.complete-circle {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	border: 5px solid #6460EC;
+	font-size: 24px;
+	cursor: pointer;
+	text-align: center;
+	color:#6460EC;
+	position: absolute;
+	bottom: 40px;
+	right: 15px;
+	background-color: #fff;
+	
+	.fa {
+		margin-top: 7px;
+	}
+}
+
+
+.todo-complete {
+	width: 320px;
+	height: auto;
+	padding: 10px 20px 20px 20px;
+	position: absolute;
+	right: 15px;
+	bottom: 90px;
+	background-color: #fff;
+	border: 1px solid #6460EC;
+	border-radius: 10px;
+	transition: all .5s;
+	opacity: 0;
+	
+	&.open {
+		opacity: 1;
+	}
+	
+	.todo-complete-item {
+		list-style: none;
+		padding: 15px 0;
+		font-size: 16px;
+		border-bottom: 1px solid #d8d8d8;
+	}
+	
+	.time-cmplt {
+		float: right;
+		color:#d8d8d8;
+		font-size: 12px;
+	}
+}
+
+
+
 .main-screen {
 	max-height: 100vh;
 	height: 100vh;
