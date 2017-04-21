@@ -1,4 +1,4 @@
 *.log
 src/
 node_modules/
-app/css/*.less
+app/css/main.less
