@@ -1,6 +1,6 @@
 'use strict';
 
-var data = localStorage.getItem('todolist').lenght ? JSON.parse(localStorage.getItem('todolist')) : {
+var data = localStorage.getItem('todolist') ? JSON.parse(localStorage.getItem('todolist')) : {
 	todo: [],
 	completed: []
 };
@@ -16,8 +16,6 @@ document.getElementById('add').addEventListener('click', function () {
 		addItem(item.value);
 	}
 	item.value = '';
-
-	console.log(data.todo);
 });
 
 document.getElementById('item').addEventListener('keydown', function (e) {
@@ -32,7 +30,7 @@ document.getElementById('item').addEventListener('keydown', function (e) {
 //add item function
 var addItem = function addItem(text) {
 
-	toDom(text);
+	toDom(text, false);
 
 	data.todo.push(text);
 
@@ -42,6 +40,36 @@ var addItem = function addItem(text) {
 var toLocalStorage = function toLocalStorage() {
 	localStorage.setItem('todolist', JSON.stringify(data));
 };
+
+function remove() {
+	var item = this.parentNode,
+	    parent = item.parentNode,
+	    id = parent.id,
+	    value = item.innerText;
+
+	data.todo.splice(data.todo.indexOf(value), 1);
+
+	toLocalStorage();
+
+	parent.removeChild(item);
+}
+
+function completeFunc() {
+	var currItem = this.parentNode,
+	    value = currItem.innerText,
+	    list = document.getElementById('cmpl'),
+	    item = document.createElement('li');
+
+	item.className = "todo-complete-item";
+
+	item.innerHTML = value;
+
+	list.insertBefore(item, list.children[0]);
+
+	data.completed.push(value);
+
+	toLocalStorage();
+}
 
 //create and append buttons
 
@@ -54,18 +82,7 @@ var createButton = function createButton(li) {
 
 	tresh.innerHTML = '<i class="fa fa-trash-o" aria-hidden="true"></i>';
 
-	tresh.addEventListener('click', function () {
-		var item = this.parentNode,
-		    parent = item.parentNode,
-		    id = parent.id,
-		    value = item.innerText;
-
-		data.todo.splice(data.todo.indexOf(value), 1);
-
-		toLocalStorage();
-
-		parent.removeChild(item);
-	});
+	tresh.addEventListener('click', remove);
 
 	var complete = document.createElement('div');
 
@@ -75,13 +92,15 @@ var createButton = function createButton(li) {
 
 	complete.innerHTML = '<img src="img/complete.png" alt="">';
 
+	complete.addEventListener('click', completeFunc);
+
 	li.append(tresh);
 	li.append(complete);
 };
 
-var toDom = function toDom(text) {
+var toDom = function toDom(text, flag) {
 
-	var todoList = document.getElementById('todo-list');
+	var todoList = flag ? document.getElementById('cmpl') : document.getElementById('todo-list');
 
 	var item = document.createElement('li');
 
@@ -89,15 +108,21 @@ var toDom = function toDom(text) {
 
 	item.innerHTML = text;
 
-	createButton(item);
+	todoList.id == "todo-list" ? createButton(item) : false;
 
 	todoList.insertBefore(item, todoList.children[0]);
 };
 
 var render = function render() {
 
+	if (!data.todo.length && !data.completed.length) return;
+
 	for (var i = 0; i < data.todo.length; i++) {
-		toDom(data.todo[i]);
+		toDom(data.todo[i], false);
+	}
+
+	for (var i = 0; i < data.completed.length; i++) {
+		toDom(data.completed[i], true);
 	}
 };
 
